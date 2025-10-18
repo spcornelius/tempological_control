@@ -1,0 +1,53 @@
+"V₀_bins" = 10
+cmap = "cool_r"
+n = 20
+m = 4
+p_range = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35]
+fig_file_name = "success_vs_dist.pdf"
+width_ratios = [0.35, 0.25, 0.4]
+
+fig_width = 3.25
+fig_height = 1.25
+
+font_size = 6
+tick_label_size = 6
+major_tick_size = 2
+minor_tick_size = 1
+
+axis_label_size = 8
+axis_label_pad = 4
+
+panel_label_size = 10
+panel_label_y = 0.9
+
+[legend]
+marker = "s"
+marker_size = 4
+loc_x = -0.1
+loc_y = 0.05
+title_x = 0.3
+title_y = 0.92
+title_size = 9
+
+[panelA]
+tick_pad = 2
+xticks = [1.0e-3, 1.0e-2, 1.0e-1, 1.0e0]
+panel_label_x = 0.0
+marker = "o"
+marker_size = 2
+x_axis_label_pad = 0
+
+[panelB]
+mode = "density"
+elev = 17
+azim = 130
+dist = 6.5
+alpha = 0.8
+tick_pad = -6
+bins = 20
+bandwidth = 0.03
+z_axis_label_pad = -15
+x_axis_label_pad = -14
+legend_label_spacing = 0.8
+handle_text_pad = 0.1
+panel_label_x = 0.55

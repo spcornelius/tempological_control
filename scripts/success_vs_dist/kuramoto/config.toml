@@ -1,0 +1,21 @@
+output_file_name = "kuramoto_results_0.05.jld2"
+
+[sys]
+slurm_mem_per_cpu = "2GB"
+local_cpu_cores = 0
+
+[sim]
+num_sys = 1000
+num_pts = 1000
+
+"V₀_min" = 1e-3
+"V₀_max" = 0.99
+
+n_range = [10]
+m_range = [4]
+k_range = [2.0]
+p_range = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
+
+V_tol = 1.0e-6
+"Δt" = 0.05
+t_max = 1000.0

@@ -1,0 +1,46 @@
+\documentclass[tikz]{standalone}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+% colors for positive/negative link weights 
+\definecolor{neg_link_color}{HTML}{<<neg_link_color>>}
+\definecolor{pos_link_color}{HTML}{<<pos_link_color>>}
+\definecolor{node_color}{HTML}{<<node_color>>}
+\definecolor{text_color}{HTML}{<<text_color>>}
+
+\usetikzlibrary{automata, arrows, backgrounds, fit, decorations.pathreplacing, shadows, graphs,graphdrawing, positioning, calc}
+
+% node and edge styles
+\tikzset{every edge/.style={draw, ->, >=stealth, line width=1.5}}
+\tikzstyle{every node}=[font=\fontsize{8}{8}\selectfont]
+\tikzstyle{vertex}=[line width=1.0, draw=node_color, circle, minimum size=6pt, text=text_color, fill=white, 
+                    circular drop shadow={shadow xshift=0.025,shadow yshift=-0.025}]
+\tikzstyle{dummyvertex}=[line width=1.0, draw=white, circle, minimum size=6pt, text=white, fill=white]
+\tikzstyle{negative} = [color=neg_link_color]
+\tikzstyle{positive} = [color=pos_link_color]
+
+% automatically shift edges, for parallel directed
+\tikzset{auto shift/.style={auto=right,,
+to path={ let \p1=(\tikztostart),\p2=(\tikztotarget),
+\n1={atan2(\y2-\y1,\x2-\x1)},\n2={\n1+180}
+in ($(\tikztostart.{\n1})!1mm!270:(\tikztotarget.{\n2})$) -- 
+($(\tikztotarget.{\n2})!1mm!90:(\tikztostart.{\n1})$) \tikztonodes}}}
+
+\begin{document}
+%\begin{tikzpicture}[x=0.65cm, y=0.65cm,framed,background rectangle/.style={double,ultra thick,draw=red, top color=blue, rounded corners}]
+\begin{tikzpicture}[x=0.65cm, y=0.65cm]
+      \node[vertex]  (1) {1};
+      \node[vertex, below left=1.3333 and 0.6666 of 1] (2) {2};
+      \node[vertex, below right=1.3333 and 0.6666 of 1] (3) {3};
+      % \node[dummyvertex, left=0.3333 of 1] (4) {4};
+
+      \draw
+      <<{edge_code}>>;
+
+      % \node[draw,dotted,inner setp=8pt,fit=(3) (4)] {};
+      %\draw[dashed] ([shift={(-5pt,5pt)}]current bounding box.north west) rectangle ([shift={(5pt,-5pt)}]current bounding box.south east);
+      %\draw[dashed] ([shift={(-5pt,5pt)}]current bounding box.north west) rectangle (2,2);
+\end{tikzpicture}
+
+\end{document}

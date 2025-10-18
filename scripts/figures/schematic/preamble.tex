@@ -1,0 +1,23 @@
+\usepackage{xcolor}
+
+% colors for positive/negative link weights 
+\definecolor{neg_link_color}{HTML}{<<NEG_LINK_COLOR>>}
+\definecolor{pos_link_color}{HTML}{<<POS_LINK_COLOR>>}
+\definecolor{node_color}{HTML}{<<NODE_COLOR>>}
+\definecolor{text_color}{HTML}{<<TEXT_COLOR>>}
+
+\usetikzlibrary{automata,arrows,decorations.pathreplacing,shadows, graphs,graphdrawing,positioning,calc}
+
+% node and edge styles
+\tikzset{every edge/.style={draw,->,>=stealth, line width=0.8}}
+%\tikzstyle{vertex}=[line width=0.4,draw=node_color, circle, text=text_color, fill=white, circular drop shadow={shadow xshift=0.01,shadow yshift=-0.01}]
+
+\tikzstyle{negative} = [color=neg_link_color]
+\tikzstyle{positive} = [color=pos_link_color]
+
+% automatically shift edges, for parallel directed
+\tikzset{auto shift/.style={auto=right,,
+to path={ let \p1=(\tikztostart),\p2=(\tikztotarget),
+\n1={atan2(\y2-\y1,\x2-\x1)},\n2={\n1+180}
+in ($(\tikztostart.{\n1})!1mm!270:(\tikztotarget.{\n2})$) -- 
+($(\tikztotarget.{\n2})!1mm!90:(\tikztostart.{\n1})$) \tikztonodes}}}
