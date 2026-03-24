@@ -1,7 +1,6 @@
 # new energy functions should implement energy and force
 abstract type EnergyFunc end;
 abstract type SmoothEnergyFunc <: EnergyFunc end;
-abstract type NonSmoothEnergyFunc <: EnergyFunc end;
 
 # don't broadcast over EnergyFunc
 broadcastable(e::EnergyFunc) = Ref(e)
@@ -13,12 +12,7 @@ function energy(::EnergyFunc, x) ::Real end
 # by knowing "force" = grad(V), because dV/dt = grad(V) . dx/dt
 function force(::SmoothEnergyFunc, F, x) ::Nothing end
 
-# for a non-smooth V, grad(V) is not defined. Must implement
-# the work directly
-function work(::NonSmoothEnergyFunc, dxdt, x, sys, t) ::Real end
-
 struct KuramotoEnergy <: SmoothEnergyFunc end;
-struct MaxEnergy <: NonSmoothEnergyFunc end;
 
 # energy function appropriate for systems where the x_i represent angles
 # and we're concerned about phase-synchronization. x_i = x_j for all
@@ -42,39 +36,6 @@ function force(::KuramotoEnergy, F, x)
     cos_x = @~ cos.(x)
     sum_sin, sum_cos = sum(sin_x), sum(cos_x)
     @. F = -2.0 * (sum_sin*cos_x - sum_cos*sin_x)/n^2
-end
-
-@inline arc_bounds(x) = extrema(@~ mod2pi.(x))
-
-@inline function arc_bound_indices(x)
-    lb, ub = arc_bounds(x)
-    all_idxs = 1:length(x)
-    𝓘_max = Iterators.filter(i -> mod2pi(x[i]) == ub, all_idxs)
-    𝓘_min = Iterators.filter(i -> mod2pi(x[i]) == lb, all_idxs)
-    return 𝓘_min, 𝓘_max
-end
-
-geodesic(xi, xj) = mod(abs(xi-xj), pi)
-
-function worst_geodesic(x)
-    n = length(x)
-    return maximum(geodesic(x[i], x[j]) for i=1:n for j=i+1:n)
-end
-
-energy(::MaxEnergy, x) = worst_geodesic(x)
-
-function worst_case_pairs(x)
-    V = worst_geodesic(x)
-    n = length(x)
-    return ((i, j) for i=1:n for j=i+1:n if geodesic(x[i], x[j]) == V)
-end
-
-function work(::MaxEnergy, dxdt::AbstractVector{<:Real}, x::AbstractVector{<:Real}, sys, t=0.0)
-    rhs(dxdt, x, sys, t)
-    return maximum(sign(x[i]-x[j])*(dxdt[i] - dxdt[j]) for (i, j) in worst_case_pairs(x))
-    # dxdt_max = maximum(dxdt[i] for i in 𝓘_max)
-    # dxdt_min = minimum(dxdt[i] for i in 𝓘_min)
-    # return dxdt_max - dxdt_min
 end
 
 # work = total time derivative of energy (Lie derivative of energy). This works

@@ -47,14 +47,7 @@ export  # config.jl
         work,
         EnergyFunc,
         SmoothEnergyFunc,
-        NonSmoothEnergyFunc,
         KuramotoEnergy,
-        MaxEnergy,
-        arc_bounds,
-        arc_bound_indices,
-        geodesic,
-        worst_geodesic,
-        worst_case_pairs,
         broadcastable,
 
         # control.jl
