@@ -14,7 +14,7 @@ julia --project
 Then, within julia, execute the following to install all dependencies:
 ```julia
 using Pkg
-Pkg.Instantiate()
+Pkg.instantiate()
 ```
 Installation may take approximately 10 minutes.
 
