@@ -10,7 +10,7 @@ mutable struct SwitchedSys{T} <: ODESys
             error("SwitchedSystem instances must have at least one subsystem.")
 
         # make sure all subsystems have identical phase-space dimension        
-        mapfoldl(state_size, ==, subsystems) ||
+        allequal(IterTools.imap(state_size, subsystems)) ||
             error("All subsystems must have same phase space dimension.")
 
         new{T}(subsystems, i)
