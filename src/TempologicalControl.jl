@@ -6,6 +6,7 @@ using OrdinaryDiffEq
 using DiffEqBase
 using DiffEqBase: DECallback, AbstractODESolution
 using DiffEqCallbacks
+using IterTools
 using LazyArrays
 using LinearAlgebra
 using Graphs
