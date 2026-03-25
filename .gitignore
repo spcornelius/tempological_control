@@ -1,3 +1,5 @@
+.CondaPkg/
+
 .vscode
 .DS_Store
 /data
