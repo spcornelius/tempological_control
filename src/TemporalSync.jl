@@ -3,6 +3,7 @@
 module TemporalSync
 
 using OrdinaryDiffEq
+using DiffEqBase
 using DiffEqBase: DECallback, AbstractODESolution
 using DiffEqCallbacks
 using LazyArrays
