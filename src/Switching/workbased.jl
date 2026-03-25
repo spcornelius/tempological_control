@@ -31,16 +31,6 @@ function update_subsystem_works!(strat::WorkBasedSwitchingStrategy{<:SmoothEnerg
     end
 end
 
-function update_subsystem_works!(strat::WorkBasedSwitchingStrategy{<:NonSmoothEnergyFunc, <:Any},
-                                 ss, x, t=0.0)
-    cache = strat.cache
-    m = num_subsystems(ss)
-    for i=1:m
-        cache.W[i] = work(strat.V, cache.dxdt, x,
-                          ss.subsystems[i], t)
-    end
-end
-
 function minimal_work_subsystem(strat::WorkBasedSwitchingStrategy,
                                 ss, x, t=0.0;
                                 exclude_current=false)

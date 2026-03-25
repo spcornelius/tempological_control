@@ -63,8 +63,3 @@ function work(V::SmoothEnergyFunc, x::AbstractVector{<:Real}, sys, t=0.0)
     F = similar(x)
     return work(V, F, dxdt, x, sys, t)
 end
-
-function work(V::NonSmoothEnergyFunc, x::AbstractVector{<:Real}, sys, t=0.0)
-    dxdt = similar(x)
-    return work(V, dxdt, x, sys, t)
-end
