@@ -1,6 +1,6 @@
 #__precompile__()
 
-module TemporalSync
+module TempologicalControl
 
 using OrdinaryDiffEq
 using DiffEqBase
