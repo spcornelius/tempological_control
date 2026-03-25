@@ -11,7 +11,6 @@ using LaTeXStrings
 using LinearAlgebra
 using Makie
 using SparseArrays
-using SPCUtil
 using TemporalSync
 using YAML
 
@@ -45,6 +44,20 @@ pp_axis(loc) = Axis(loc, xlabel=L"\theta_1", ylabel=L"\theta_2",
 
 snapshot_colors = [colorant"#4daf4a",
                    colorant"rgb(250,184,10)"]#colorant"#984ea3"]
+
+function align_xlabels!(axs...)
+    xspace = maximum(tight_xticklabel_spacing!, axs)
+    for ax in axs
+        ax.xticklabelspace = xspace
+    end
+end
+
+function align_ylabels!(axs...)
+    yspace = maximum(tight_yticklabel_spacing!, axs)
+    for ax in axs
+        ax.yticklabelspace = yspace
+    end
+end
 
 ##############################################################################
 # vector fields for snapshots
